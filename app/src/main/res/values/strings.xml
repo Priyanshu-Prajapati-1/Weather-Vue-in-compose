@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Weather Vue</string>
+    <string name="about_app">Weather App v.0.1\n</string>
+    <string name="api"><![CDATA[https://api.openweathermap.org/data/2.5/forecast/daily?q={city}&appid={Api_Key}&units={unitValue}]]></string>
+    <string name="api_used">used- API</string>
+    <string name="get_api_data_from">https://api.openweathermap.org</string>
+</resources>
