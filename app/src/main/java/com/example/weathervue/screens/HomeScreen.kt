@@ -1,6 +1,7 @@
 package com.example.weathervue.screens
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -146,6 +147,7 @@ fun HomeScreen(
         }
     }*/
 
+    val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
     val ds = DataStoreKey(context)
     val currentState =
@@ -227,6 +229,16 @@ fun HomeScreen(
                     ds = ds,
                 )
             }
+        }
+    }
+
+    BackHandler {
+        if(pagerState.currentPage == 1){
+            coroutineScope.launch {
+                pagerState.animateScrollToPage(0)
+            }
+        }else{
+            navController.popBackStack()
         }
     }
 }

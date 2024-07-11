@@ -17,6 +17,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -72,7 +73,7 @@ fun SplashScreen(
             speed = 1.5f,
             modifier = Modifier
                 .scale(scale.value)
-                .align(Alignment.Center)
+                .align(Alignment.Center),
         )
 
         Text(

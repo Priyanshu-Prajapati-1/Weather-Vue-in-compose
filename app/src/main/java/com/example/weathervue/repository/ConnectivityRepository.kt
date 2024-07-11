@@ -25,5 +25,6 @@ class ConnectivityRepository(context: Context) {
                 _isConnected.value = false
             }
         })
+
     }
 }
