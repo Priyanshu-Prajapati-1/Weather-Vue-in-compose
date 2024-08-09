@@ -3,7 +3,6 @@ package com.example.weathervue.network
 import com.example.weathervue.models.airQuality.AirQuality
 import com.example.weathervue.models.currentWeather.CurrentWeather
 import com.example.weathervue.models.weatherModel.Weather
-import com.example.weathervue.utils.Constants
 import com.example.weathervue.BuildConfig
 import retrofit2.Response
 import retrofit2.http.GET
