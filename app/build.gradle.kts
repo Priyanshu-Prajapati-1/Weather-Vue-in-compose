@@ -1,10 +1,9 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-android")
-
     kotlin("kapt")
-
     id("com.google.dagger.hilt.android")
 }
 
@@ -26,11 +25,52 @@ android {
     }
 
     buildTypes {
+        // load local.properties file
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+
+        android.buildFeatures.buildConfig = true
+
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+            buildConfigField(
+                "String",
+                "API_KEY",
+                "\"${properties.getProperty("API_KEY")}\""
+            )
+            buildConfigField(
+                "String",
+                "MY_API_KEY",
+                "\"${properties.getProperty("MY_API_KEY")}\""
+            )
+            buildConfigField(
+                "String",
+                "API_URL",
+                "\"${properties.getProperty("API_URL")}\""
+            )
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+            buildConfigField(
+                "String",
+                "API_KEY",
+                "\"${properties.getProperty("API_KEY")}\""
+            )
+            buildConfigField(
+                "String",
+                "MY_API_KEY",
+                "\"${properties.getProperty("MY_API_KEY")}\""
+            )
+            buildConfigField(
+                "String",
+                "API_URL",
+                "\"${properties.getProperty("API_URL")}\""
             )
         }
     }
@@ -83,7 +123,7 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.2.0")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
     // other hilt dependencies
-    implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("androidx.hilt:hilt-work:1.2.0")
     implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
@@ -103,13 +143,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     // lifeCycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.6.0")
 
     // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
     // Json converter
     implementation("com.squareup.retrofit2:converter-gson:2.10.0")
 
@@ -118,7 +158,7 @@ dependencies {
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     // Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")

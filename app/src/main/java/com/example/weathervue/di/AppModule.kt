@@ -7,7 +7,7 @@ import com.example.weathervue.data.CityDao
 import com.example.weathervue.data.CityDatabase
 import com.example.weathervue.network.WeatherAPI
 import com.example.weathervue.repository.ConnectivityRepository
-import com.example.weathervue.utils.Constants
+import com.example.weathervue.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,7 +34,7 @@ class AppModule {
     @Singleton
     fun provideWeatherApi(okHttpClient: OkHttpClient): WeatherAPI {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BuildConfig.API_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
